@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Containers\[Model]\Tasks;
+
+use App\Containers\[Model]\Models\[Model];
+use Exception;
+use Lang;
+
+class [Model]Task {
+
+    public static function create(Array $data){
+        $model = null;
+        try{
+            $model = [Model]::create($data);
+            $model->refresh();
+        }catch(Exception $e){
+            throw new Exception(Lang::get('error.create'), ['model' => '[Model]']);
+        }
+        return $model;
+    }
+
+    public static function update($id, Array $data){
+        $model = [Model]::find($id);
+        try{
+            $model = $model->update($data);
+        }catch(Exception $e){
+            throw new Exception(Lang::get('error.update'), ['model' => '[Model]']);
+        }
+        return $model;
+    }
+
+    public static function delete($id){
+        $model = [Model]::find($id);
+        try{
+            $model->delete();
+        }catch(Exception $e){
+            throw new Exception(Lang::get('error.delete'), ['model' => '[Model]']);
+        }
+        return $model;
+    }
+
+    public static function getById($id, Array $includes = []){
+        return [Model]::include($includes)->find($id);
+    }
+
+    public function exists($value, $column = 'id'){
+        return [Model]::where($column, $value)->count()>0;
+    }
+
+    public static function getDataFillable($data){
+        $fillable = (new [Model]())->getFillable();
+        $newData = [];
+        foreach ($fillable as $key => $value) {
+            if(array_key_exists($value, $data)){
+                $newData[$value] = $data[$value];
+            }
+        }
+        return $newData;
+    }
+}
+
+?>

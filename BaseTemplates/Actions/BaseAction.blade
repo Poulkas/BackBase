@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Containers\[Model]\Actions;
+
+use App\Containers\[Model]\Tasks\[Model]Task;
+use Request;
+
+class [Model]Action {
+
+    public function create[Model](Request $request){
+        $data = [Model]Task::getDataFillable($request->input());
+        $model = [Model]Task::create($data);
+        return $model;
+    }
+
+    public function update[Model](Request $request, $id){
+        $data = [Model]Task::getModelFillable($request->input());
+        $model = [Model]Task::update($id, $data);
+        return $model;
+    }
+
+    public function delete[Model](Request $request, $id){
+        $model = [Model]Task::delete($id);
+        return true;
+    }
+
+    public function get[Model]ById(Request $request, $id){
+        $model = [Model]Task::getById($id);
+        return $model;
+    }
+
+    public function getAll(Request $request){
+        $paginate = [Model]Task::getBuilder();
+        return $paginate;
+    }
+}
+
+?>

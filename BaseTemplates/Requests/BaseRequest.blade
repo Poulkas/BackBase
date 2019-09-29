@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Ship\Containers\[Model]\Requests;
+
+use App\Ship\Requests\Request;
+
+class [Type]Request extends Request {
+    protected $access = [[access]];
+
+    protected $urlParameters = [[parameters]];
+
+    protected $decode = [[decode]];
+
+    protected function rules(){
+        return [[fields]];
+    }
+    [authorize]
+    [messages]
+}
+
+?>
