@@ -23,8 +23,8 @@ class AuthController extends Controller {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        return ["data" =>
-            [
+        return [
+            "data" => [
                 'user' => $user,
                 'token' => $token
             ]

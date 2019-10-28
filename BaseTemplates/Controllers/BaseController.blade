@@ -10,27 +10,27 @@ use Exception;
 
 class [Model]Controller extends Controller {
     public function Create(Request $request){
-        $data = $this->callActionMethod('create[Model]', new [Model]Action(), $request);
+        $data = $this->callActionMethod(new UserAction(), 'create[Model]', $request);
         return $this->transform('item', $data, new [Model]Transformer());
     }
 
     public function Update(Request $request, $id){
-        $data = $this->callActionMethod('update[Model]', new [Model]Action(), $request, $id);
+        $data = $this->callActionMethod(new UserAction(), 'update[Model]', $request, $id);
         return $this->transform('item', $data, new [Model]Transformer());
     }
 
     public function Delete(Request $request, $id){
-        $data = $this->callActionMethod('delete[Model]', new [Model]Action(), $request, $id);
+        $data = $this->callActionMethod(new UserAction(), 'delete[Model]', $request, $id);
         return $this->response();
     }
 
     public function GetById(Request $request, $id){
-        $data = $this->callActionMethod('get[Model]ById', new [Model]Action(), $request, $id);
+        $data = $this->callActionMethod(new UserAction(), 'get[Model]ById', $request, $id);
         return $this->transform('item', $data, new [Model]Transformer());
     }
 
     public function GetAll(Request $request){
-        $data = $this->callActionMethod('getAll', new [Model]Action(), $request);
+        $data = $this->callActionMethod(new UserAction(), 'getAll', $request);
         return $this->transform('paginate', $data, new [Model]Transformer(), $request);
     }
 }

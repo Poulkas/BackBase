@@ -14,12 +14,11 @@ use Exception;
 
 abstract class AbstractController extends BaseController {
 
-    public function callActionMethod(String $method, $object, $request, ...$mixed){
+    public function callActionMethod($object, String $method, $request, ...$mixed){
         try{
             return call_user_func(array($object, $method), $request, ...$mixed);
         }catch(Exception $e){
             throw $e;
-            // return $this->errorResponse($e->getMessage(), $e->getTrace());
         }
     }
 
@@ -39,11 +38,8 @@ abstract class AbstractController extends BaseController {
 
     public function paginate($model, $transformer, Request $request = null){
         $paginator = $this->_getPaginator($model, $request);
-        $collection = $paginator->getCollection();
-
-        $resource = new Collection($collection, $transformer);
+        $resource = new Collection($paginator->getCollection(), $transformer);
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
-
         return $resource;
     }
 
@@ -83,7 +79,6 @@ abstract class AbstractController extends BaseController {
     private function _getResponseData($data, $message, $code){
         $resource = $this->item($data, new ResponseTransformer());
         $meta = $resource->getMeta();
-
         if($message!==null){
             $meta['message'] = $message;
         }
@@ -91,7 +86,6 @@ abstract class AbstractController extends BaseController {
             $meta['code'] = $code;
         }
         $resource->setMeta($meta);
-
         return $resource;
     }
 }
