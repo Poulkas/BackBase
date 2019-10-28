@@ -45,7 +45,6 @@ class ResponseSerializer {
         foreach ($custom as $key => $value) {
             $response[$key] = $value;
         }
-        \Log::info($code);
         return response()->json($response, $code);
     }
 
