@@ -32,7 +32,8 @@ class AuthController extends Controller {
         ];
     }
 
-    public function Logout(Request $request, $id){
+    public function Logout(Request $request){
+        JWTAuth::setRequest($request)->parseToken()->invalidate();
         return ["data" => "Logout"];
     }
 }
