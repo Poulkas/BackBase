@@ -5,6 +5,7 @@ namespace App\Containers\Authentication\Controllers;
 use App\Ship\Controllers\Controller;
 use App\Containers\User\Transformers\UserTransformer;
 use App\Containers\User\Models\User;
+use JWTAuth;
 use Request;
 use Exception;
 
