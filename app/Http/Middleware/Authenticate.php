@@ -10,7 +10,7 @@ use Exception;
 
 class Authenticate {
     private const TYPE_OPTIONAL = "optional";
-    private const TYPE_OPTIONAL_VALIDATED = "optional.validated";
+    private const TYPE_OPTIONAL_VALIDATED = "validated";
     /**
     * Handle an incoming request.
     *
@@ -22,9 +22,9 @@ class Authenticate {
         $response = null;
 
         switch($type){
-            self::TYPE_OPTIONAL: $response = $this->_optional($request, $next);
+            case self::TYPE_OPTIONAL: $response = $this->_optional($request, $next);
                 break;
-            self::TYPE_OPTIONAL_VALIDATED: $response = $this->_optionalValidated($request, $next);
+            case self::TYPE_OPTIONAL_VALIDATED: $response = $this->_optionalValidated($request, $next);
                 break;
             default: $response = $this->auth($request, $next);
         }
@@ -32,34 +32,36 @@ class Authenticate {
         return $response;
     }
 
-    private function auth(Request $request, Clousere $next){
+    private function auth(Request $request, Closure $next){
         $user = null;
         try {
             $user = AuthUser::authenticate($request);
-            $request->add(['user' => $user]);
+            $request->request->add(['user' => $user]);
         }catch (Exception $e) {
             return ResponseSerializer::error($e->getMessage(), null, $e->getCode());
         }
         return $next($request);
     }
 
-    private function _optional(Request $request, Clousere $next){
+    private function _optional(Request $request, Closure $next){
         $user = null;
         try {
             $user = AuthUser::authenticate($request);
         }catch (Exception $e) {}
-        $request->add(['user' => $user]);
+        $request->request->add(['user' => $user]);
         return $next($request);
     }
 
-    private function _optionalValidated(Request $request, Clousere $next){
+    private function _optionalValidated(Request $request, Closure $next){
         $user = null;
         try {
             if($request->hasHeader('authorization')){
                 $user = AuthUser::authenticate($request);
-                $request->add(['user' => $user]);
+                $request->request->add(['user' => $user]);
             }
-        }catch (Exception $e) {}
+        }catch (Exception $e) {
+            return ResponseSerializer::error($e->getMessage(), null, $e->getCode());
+        }
         return $next($request);
     }
 }

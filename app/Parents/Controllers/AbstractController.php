@@ -47,7 +47,7 @@ abstract class AbstractController extends BaseController {
         return $this->_response($data, $message, $code);
     }
 
-    public function errorResponse($message = null, $data = null, $code = 470){
+    public function errorResponse($message = null, $data = null, $code = 422){
         return $this->_response($data, $message, $code);
     }
 
@@ -82,7 +82,7 @@ abstract class AbstractController extends BaseController {
         if($message!==null){
             $meta['message'] = $message;
         }
-        if($code!==null){
+        if($code!==null && $code!==0){
             $meta['code'] = $code;
         }
         $resource->setMeta($meta);

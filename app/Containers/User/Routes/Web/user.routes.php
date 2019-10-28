@@ -11,8 +11,8 @@
 |
 */
 
-Route::post('/user', 'UserController@Create')->middleware('auth');
-Route::post('/user/{id}', 'UserController@Update')->middleware('auth');
-Route::delete('/user/{id}', 'UserController@Delete')->middleware('auth');
-Route::get('/user/{id}', 'UserController@GetById')->middleware('auth');
-Route::get('/user', 'UserController@GetAll')->middleware('auth');
+Route::post('/users', 'UserController@Create')->middleware('auth');
+Route::post('/users/{id}', 'UserController@Update')->middleware('auth');
+Route::delete('/users/{id}', 'UserController@Delete')->middleware('auth');
+Route::get('/users/{id}', 'UserController@GetById')->middleware('auth');
+Route::get('/users', 'UserController@GetAll')->middleware('auth');

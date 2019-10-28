@@ -39,13 +39,13 @@ class ResponseSerializer {
      */
     public static function error(String $message, Mixed $data = null, Int $code = 422, Array $custom = []) {
         $response = [
-            'code' => $code,
             'message' => $message,
             'data' => $data
         ];
         foreach ($custom as $key => $value) {
             $response[$key] = $value;
         }
+        \Log::info($code);
         return response()->json($response, $code);
     }
 
