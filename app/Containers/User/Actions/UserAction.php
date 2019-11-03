@@ -8,13 +8,13 @@ use Request;
 class UserAction {
 
     public function createUser(Request $request){
-        $data = UserTask::getDataFillable($request->input());
+        $data = UserTask::getDataFillable($request->all());
         $model = UserTask::create($data);
         return $model;
     }
 
     public function updateUser(Request $request, $id){
-        $data = UserTask::getModelFillable($request->input());
+        $data = UserTask::getModelFillable($request->all());
         $model = UserTask::update($id, $data);
         return $model;
     }

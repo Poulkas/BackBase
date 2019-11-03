@@ -8,13 +8,13 @@ use Request;
 class [Model]Action {
 
     public function create[Model](Request $request){
-        $data = [Model]Task::getDataFillable($request->input());
+        $data = [Model]Task::getDataFillable($request->all());
         $model = [Model]Task::create($data);
         return $model;
     }
 
     public function update[Model](Request $request, $id){
-        $data = [Model]Task::getModelFillable($request->input());
+        $data = [Model]Task::getModelFillable($request->all());
         $model = [Model]Task::update($id, $data);
         return $model;
     }
